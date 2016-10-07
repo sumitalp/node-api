@@ -11,9 +11,21 @@ var User = require('../app/models/user');
 
 module.exports = function(app) {
     router.route('/')
+        .get(function(req, res) {
+            User.find(function(err, users) {
+                if (err)
+                    res.send(err);
+                    
+                res.json(users);
+            });
+        });
+        
+    router.route('/registration')
         .post(function(req, res) {
             var user = new User();  // create a new instance of the User Model
             user.name = req.body.name; // set the users name (comes from the request)
+            user.password = req.body.password;
+            user.admin  = req.body.admin;
             
             // save the user and check for errors
             user.save(function(err) {
@@ -23,14 +35,6 @@ module.exports = function(app) {
                 res.json({message: 'User Created.'});
             });
         })
-        .get(function(req, res) {
-            User.find(function(err, users) {
-                if (err)
-                    res.send(err);
-                    
-                res.json(users);
-            });
-        });
 
     // on routes that end in /users/authenticate
     // -----------------------------------------------------

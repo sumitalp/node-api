@@ -1,6 +1,6 @@
 # node-api
 
-This project is an attempt for learning Node.js. I chose Express.js as the scaffolding framework.
+This project is an attempt for learning Node.js. I chose Express.js as RESTful api development.
 
 # Prerequisite
 
@@ -16,3 +16,9 @@ Install dependencies
 npm install
 Finally run the app
 node server.js
+
+## User Module urls
+/api/users                  [GET]
+/api/users/registration     [POST]
+/api/users/authenticate     [POST]
+/api/users/:user_id         [PUT, GET, DELETE]

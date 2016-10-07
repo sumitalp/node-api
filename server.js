@@ -36,7 +36,7 @@ router.use(function(req, res, next) {
     let url_parts = req.url.split('/');
     console.log(url_parts[url_parts.length-1]);
     
-    if (url_parts[url_parts.length-1] !== 'authenticate'){
+    if (url_parts[url_parts.length-1] !== 'authenticate' || url_parts[url_parts.length-1] !== 'registration'){
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
       
