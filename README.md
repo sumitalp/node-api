@@ -18,7 +18,7 @@ Finally run the app
 node server.js
 
 ## User Module urls
-/api/users                  [GET]
-/api/users/registration     [POST]
-/api/users/authenticate     [POST]
-/api/users/:user_id         [PUT, GET, DELETE]
+- /api/users                  [GET]
+- /api/users/registration     [POST]
+- /api/users/authenticate     [POST]
+- /api/users/:user_id         [PUT, GET, DELETE]
