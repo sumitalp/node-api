@@ -34,9 +34,9 @@ var router = express.Router();      // get an instance of the express Router
 router.use(function(req, res, next) {
     console.log('Something is happening.');
     let url_parts = req.url.split('/');
-    console.log(url_parts[url_parts.length-1]);
+    console.log(req.url.indexOf('registratio'));
     
-    if (url_parts[url_parts.length-1] !== 'authenticate' || url_parts[url_parts.length-1] !== 'registration'){
+    if (url_parts[url_parts.length - 1] in ['authenticate', 'registration']){
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
       
@@ -70,6 +70,17 @@ router.use(function(req, res, next) {
     
 });
 
+/**
+const bearerTokenValidation = require('express-accesstoken-validation');
+
+let options = {
+    validationUri: 'http://localhost:9000/api/users/authenticate',
+    tokenParam: 'token',
+    unprotected: ['/users/registration']
+}
+
+app.use(bearerTokenValidation(options));
+**/
 // test route to make sure everything is working (accessed at GET http://localhost:9000/api/)
 router.get('/', function(req, res) {
    res.json({message: 'hooray! welcome to our api!'}); 

@@ -9,8 +9,10 @@
   "author": "Ahsanuzzaman Khan",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "express-accesstoken-validation": "^0.2.0",
     "jsonwebtoken": "^7.1.9",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
