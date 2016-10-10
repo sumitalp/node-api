@@ -24,7 +24,8 @@ module.exports = function(app) {
         .post(function(req, res) {
             var user = new User();  // create a new instance of the User Model
             user.name = req.body.name; // set the users name (comes from the request)
-            user.password = req.body.password;
+            user.username = req.body.username;
+			user.password = user.hashPassword(req.body.password);
             user.admin  = req.body.admin;
             
             // save the user and check for errors
@@ -49,7 +50,8 @@ module.exports = function(app) {
                 } else if (user) {
               
                     // check if password matches
-                    if (user.password != req.body.password) {
+					console.log(user.validPassword(req.body.password));
+                    if (!user.validPassword(req.body.password)) {
                       res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                     } else {
               
@@ -93,6 +95,8 @@ module.exports = function(app) {
                     res.send(err);
     
                 user.name = req.body.name;  // update the users info
+				user.username = req.body.username;
+				user.password = user.hashPassword(req.body.password);
     
                 // save the user
                 user.save(function(err) {
