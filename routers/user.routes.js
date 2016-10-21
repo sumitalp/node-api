@@ -42,7 +42,7 @@ module.exports = function(app) {
     router.route('/authenticate')
         .post(function(req, res) {
             // find the user
-            User.findOne({name: req.body.name}, function(err, user) {
+            User.findOne({username: req.body.username}, function(err, user) {
                 if (err) throw err;
                 
                 if (!user) {

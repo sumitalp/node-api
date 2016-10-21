@@ -36,10 +36,10 @@ router.use(function(req, res, next) {
     let url_parts = req.url.split('/');
     console.log(url_parts[url_parts.length - 1]);
     
-    if (!(url_parts[url_parts.length - 1] in ['authenticate', 'registration'])){
+    if ( ['authenticate', 'registration'].indexOf(url_parts[url_parts.length - 1].toLowerCase()) < 0 ){
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
-      
+        //console.log(['authenticate', 'registration'].indexOf(url_parts[url_parts.length - 1]));
         // decode token
         if (token) {
       
@@ -50,13 +50,12 @@ router.use(function(req, res, next) {
             } else {
               // if everything is good, save to request for use in other routes
               req.decoded = decoded;
-              console.log(req.decoded);
+              console.log(jwt.decode(token));
               next();
             }
           });
       
         } else {
-      
           // if there is no token
           // return an error
           return res.status(403).send({ 
