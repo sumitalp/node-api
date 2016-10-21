@@ -35,7 +35,7 @@ module.exports = function(app) {
                     
                 res.json({message: 'User Created.'});
             });
-        })
+        });
 
     // on routes that end in /users/authenticate
     // -----------------------------------------------------
@@ -120,4 +120,4 @@ module.exports = function(app) {
             });
         });
     return router;
-}   
+};

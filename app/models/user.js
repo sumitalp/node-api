@@ -14,7 +14,7 @@ var userSchema = new Schema({
 // checking if password is valid using bcrypt
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
-}
+};
 
 // this method hashes the password and sets the users password
 userSchema.methods.hashPassword = function(password){
@@ -27,7 +27,7 @@ userSchema.methods.hashPassword = function(password){
 
 		user.password = hash;
     });
-}
+};
 
 module.exports = mongoose.model('User', userSchema);
 

@@ -34,9 +34,9 @@ var router = express.Router();      // get an instance of the express Router
 router.use(function(req, res, next) {
     console.log('Something is happening.');
     let url_parts = req.url.split('/');
-    //console.log(req.url.indexOf('registratio'));
+    console.log(url_parts[url_parts.length - 1]);
     
-    if (url_parts[url_parts.length - 1] in ['authenticate', 'registration']){
+    if (!(url_parts[url_parts.length - 1] in ['authenticate', 'registration'])){
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
       
@@ -49,7 +49,8 @@ router.use(function(req, res, next) {
               return res.json({ success: false, message: 'Failed to authenticate token.' });    
             } else {
               // if everything is good, save to request for use in other routes
-              req.decoded = decoded;    
+              req.decoded = decoded;
+              console.log(req.decoded);
               next();
             }
           });
