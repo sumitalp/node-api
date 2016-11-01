@@ -17,6 +17,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
+// For Public folder to access images or other stuffs
+app.use('/static', express.static(__dirname+'/public'));
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,6 +39,16 @@ router.use(function(req, res, next) {
     let url_parts = req.url.split('/');
     console.log(url_parts[url_parts.length - 1]);
     
+    //let sc = require('html-metadata');
+    //sc('https://www.npmjs.com/package/html-metadata').then(function(metadata){
+    //    console.log(metadata);
+    //});
+    //let webshot = require('webshot');
+    //webshot('google.com', 'public/images/google.png', function(err){
+    //    if(err)
+    //            console.log(err);
+    //        });
+    
     if ( ['authenticate', 'registration'].indexOf(url_parts[url_parts.length - 1].toLowerCase()) < 0 ){
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -50,7 +63,8 @@ router.use(function(req, res, next) {
             } else {
               // if everything is good, save to request for use in other routes
               req.decoded = decoded;
-              console.log(jwt.decode(token));
+              // console.log(jwt.decode(token));
+              console.log(req.decoded._doc._id);
               next();
             }
           });
@@ -70,39 +84,9 @@ router.use(function(req, res, next) {
     
 });
 
-/**
-const bearerTokenValidation = require('express-accesstoken-validation');
-
-let options = {
-    validationUri: 'http://localhost:9000/api/users/authenticate',
-    tokenParam: 'token',
-    unprotected: ['/users/registration']
-}
-
-app.use(bearerTokenValidation(options));
-**/
 // test route to make sure everything is working (accessed at GET http://localhost:9000/api/)
 router.get('/', function(req, res) {
    res.json({message: 'hooray! welcome to our api!'}); 
-});
-
-// static user insertion
-app.get('/setup', function(req, res) {
-
-  // create a sample user
-  var nick = new User({ 
-    name: 'Ahsanuzzaman Khan', 
-    password: 'password',
-    admin: true 
-  });
-
-  // save the sample user
-  nick.save(function(err) {
-    if (err) throw err;
-
-    console.log('User saved successfully');
-    res.json({ success: true });
-  });
 });
 
 // REGISTER OUR ROUTES -----------------------------
@@ -119,6 +103,12 @@ app.use('/api/bears', bearRouter);
 // -------------------------------------------------
 var userRouter = require('./routers/user.routes')(app);
 app.use('/api/users', userRouter);
+
+// on routes that end in /users
+// -------------------------------------------------
+var bookmarkRouter = require('./routers/bookmark.routes');
+app.use('/api/bookmarks', bookmarkRouter);
+
 
 // START THE SERVER
 // ========================================================================================

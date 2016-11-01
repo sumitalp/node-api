@@ -5,6 +5,7 @@ var BookmarkSchema = new Schema({
     title: String,
     imageUrl: String,
     url: String,
+    personalNotes: String,
     description: String,
     users: [
         {type: Schema.Types.ObjectId, ref: 'User'}
