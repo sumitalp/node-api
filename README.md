@@ -13,9 +13,10 @@ To run the application you can follow these steps
 Clone the repository
 
 Install dependencies
-npm install
+`npm install`
+
 Finally run the app
-node server.js
+`node server.js`
 
 ## User Module urls
 - /api/users                  [GET]
