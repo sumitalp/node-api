@@ -1,6 +1,6 @@
-# node-api
+# node api bookmarking site
 
-This project is an attempt for learning Node.js. I chose Express.js as RESTful api development.
+This project is a bookmarking site with Node.js. I chose Express.js as RESTful api development.
 
 # Prerequisite
 
@@ -22,3 +22,8 @@ node server.js
 - /api/users/registration     [POST]
 - /api/users/authenticate     [POST]
 - /api/users/:user_id         [PUT, GET, DELETE]
+
+## Bookmark Module urls
+- /api/bookmarks              [GET]
+- /api/bookmarks              [POST]
+- /api/bookmarks/:user_id     [GET, DELETE]
